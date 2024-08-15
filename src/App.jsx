@@ -6,12 +6,6 @@ function App() {
 
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const usersPossible = [
-    {username: "Jao", password: "bilada"},
-    {username: "lucas", password: "picanha"},
-    {username: "binaldo", password: "senha2"}
-  ];
-
   const login = (email, password) => {
       usersPossible.forEach((element) => 
       {
@@ -24,7 +18,7 @@ function App() {
 
   return (
     <>
-      {loggedIn ? <Dashboard /> : <Login onLogin={login}></Login>}
+      {/*loggedIn ? <Dashboard /> : <Login onLogin={login}></Login>*/}
     </>
   )
 }
