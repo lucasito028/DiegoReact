@@ -1,7 +1,5 @@
 
-
 export default function Login({params = {name: null, password: null}}){
-
 
 
     return(

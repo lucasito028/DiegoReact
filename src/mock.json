@@ -1,0 +1,29 @@
+{
+        "users": [
+        {
+            "user": "usario1",
+            "password": "senha1",
+            "token": "123456"
+        },
+        {
+            "user": "usario2",
+            "password": "senha2",
+            "token": "123456"
+        },
+        {
+            "user": "usario3",
+            "password": "senha3",
+            "token": "123456"
+        },
+        {
+            "user": "usario4",
+            "password": "senha4",
+            "token": "123456"
+        },
+        {
+            "user": "usario5",
+            "password": "senha5",
+            "token": "123456"
+        }
+    ]
+}
