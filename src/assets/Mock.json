@@ -4,19 +4,19 @@
             "username": "itolucas",
             "email": "tozim@gmail.com",
             "password": "itoito",
-            "token": "12345"
+            "id": "12345"
         },
         {
             "username": "toshio",
             "email": "tozim@gmail.com",
             "password": "meupai",
-            "token": "12345"
+            "id": "12345"
         },
         {
             "username": "diego",
             "email": "tozim@gmail.com",
             "password": "diego",
-            "token": "12345"
+            "id": "12345"
         }
     ]
 }
