@@ -1,48 +1,37 @@
 import React, { useState } from 'react';
 
-export default function Login({param}){
+export default function Login({ onLogin }){
 
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const [erro, setErro] = useState('');
+  const handleSubmit = (e) => {
+    e.preventDefault(); 
+    onLogin({ username, password });
+  };
 
-    const handleSubmit = (event) => {
-        event.preventDefault();
-        // Verifica se as credenciais estão corretas
-        if (email && senha) {
-          const values = {email, senha}
-          param(values)
-        }else{
-          setErro("Está faltando um campo");
-      };
-
-    return (
+  return (
+    <div>
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
         <div>
-          <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Email:</label>
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-              />
-            </div>
-            <div>
-              <label>Senha:</label>
-              <input
-                type="password"
-                value={senha}
-                onChange={(e) => setSenha(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit">Entrar</button>
-          </form>
-          {erro && <p style={{ color: 'red' }}>{erro}</p>}
+          <label>Username:</label>
+          <input
+            type="text"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </div>
-    );
-  }
+        <div>
+          <label>Password:</label>
+          <input
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
+        </div>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+  );
 }

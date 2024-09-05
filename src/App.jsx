@@ -2,41 +2,38 @@ import data from './assets/Mock.json';
 import React, { useState } from 'react';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
+import { sha256 } from 'js-sha256';
 
-function App() {
+export default function App() {
   // Definir o estado inicial com os dados de usuários do JSON
   const [users] = useState(data.users);
-  const [params, setParams] = useState({ username: 'itolucas', password: 'itoito' });
   const [autenticado, setAutenticado] = useState(false);
+  const [session, setSession] = useState('');
 
-  // Função de login para autenticação
   const login = (params) => {
-    const user = users.find(
-      user => user.username === params.username && user.password === params.password
-    );
+    const user = users.find(user => user.username === params.username && 
+      sha256(user.password) === sha256(params.password));
     
-    // Verifica se o usuário foi encontrado e define a autenticação
     if (user) {
-      setAutenticado(true); // Usuário autenticado
-      return user.id;
+      setAutenticado(true);
+      setSession(sha256(user.id))
+      return true;
     } else {
-      alert('Usuário ou senha incorretos'); // Retorno para erro de login
+      alert('Usuário ou senha incorretos'); 
       return null;
     }
-  };
+    };
 
   // JSX para renderização condicional
   return (
     <div className="App">
       {
         !autenticado ? (
-          <Login param={login} />
+          <Login onLogin={login}  />
         ) : (
-          <Home />
+          <Home session={session} />
         )
       }
     </div>
   );
 }
-
-export default App;
