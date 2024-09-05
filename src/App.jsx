@@ -5,7 +5,7 @@ import Home from './Pages/Home';
 import { sha256 } from 'js-sha256';
 
 export default function App() {
-  // Definir o estado inicial com os dados de usuários do JSON
+  
   const [users] = useState(data.users);
   const [autenticado, setAutenticado] = useState(false);
   const [session, setSession] = useState('');
