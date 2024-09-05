@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import ForgotPassword from './popup/ForgotPassword';
 
-export default function Login({ onLogin }){
+export default function Login({ datas, setDatas, onLogin }){
 
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -12,6 +13,9 @@ export default function Login({ onLogin }){
 
   return (
     <div>
+      <div>
+        <ForgotPassword datas={datas} setDatas={setDatas} onForgetPassword={onLogin}/>
+      </div>
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>

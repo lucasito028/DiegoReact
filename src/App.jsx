@@ -5,14 +5,22 @@ import Home from './Pages/Home';
 import { sha256 } from 'js-sha256';
 
 export default function App() {
+
+  const [datas, setDatas] = useState([
+    {
+        "username": "itolucas",
+        "email": "tozim@gmail.com",
+        "password": "a1dc0edf33096b81fe74363c83dcb30c2ca269113de53db0bbe5f0664a2e5054",
+        "id": "1"
+    },
+  ]);
   
-  const [users] = useState(data.users);
   const [autenticado, setAutenticado] = useState(false);
   const [session, setSession] = useState('');
 
   const login = (params) => {
-    const user = users.find(user => user.username === params.username && 
-      sha256(user.password) === sha256(params.password));
+    const user = datas.find(user => user.username === params.username && 
+      user.password === sha256(params.password));
     
     if (user) {
       setAutenticado(true);
@@ -29,7 +37,7 @@ export default function App() {
     <div className="App">
       {
         !autenticado ? (
-          <Login onLogin={login}  />
+          <Login datas={datas} setDatas={setDatas} onLogin={login}  />
         ) : (
           <Home session={session} />
         )

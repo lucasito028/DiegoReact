@@ -1,65 +1,66 @@
-import data from './../../assets/Mock.json';
+import { useState } from 'react';
 
-export default function ForgotPassword(){
+export default function ForgotPassword({ datas, setDatas }){
 
-    const [users] = useState(data.users);
-    const [username, setUsername] = useState('');
-    const [id, setId] = useState(0);
-    const [code, setCode] = useState(0);
+    const [user, setUser] = useState(null);
+    const [showPassword, setShowPassword] = useState(false);
 
-    const findUser = (e) => {
-        e.preventDefault(); 
+    const handleForgotPassword = (e) => {
+        e.preventDefault();
 
-        const user = users.find(user => user.username === params.username);
-        if (user) {
-            setId(user.id)
-            return true;
-            } else {
-            alert('Usuário ou senha incorretos'); 
-            return null;
-            }
+        const username = e.target.username.value
+
+        const userFind = datas.find(user => user.username === username)
+
+        e.target.username.value = ""
+        setUser(userFind);
+        setShowPassword(true)
     };
 
-    const navigateToHome = (e) => {
-        e.preventDefault(); 
+    const createNewPassword = (e) => {
+        e.preventDefault()
 
-    };
+        const userWithoutOne = datas.find(userData => userData.username != user.username)
+
+        setDatas([...datas, {
+            user
+        }])
+    }
 
     return (
         <div>
-            {
-                !id != 0 ? (
+            <h2>Recuperar Senha</h2>
+
+            {!showPassword ? (
+                <form onSubmit={handleForgotPassword}>
                     <div>
-                    <h2>Coloca seu codigo</h2>
-                        <form onSubmit={navigateToHome}>
-                            <div>
-                            <label>Codigo:</label>
-                            <input
-                                type="number"
-                                value={code}
-                                onChange={(e) => setCode(e.target.value)}
-                            />
-                            </div>
-                            <button type="submit">Login</button>
-                        </form>
+                        <label>Username:</label>
+                        
+                        <input
+                            id='username'
+                            name='username'
+                            type="text"
+                        />
                     </div>
-                ) : (
-                <div>
-                    <h2>Recuperar Email</h2>
-                        <form onSubmit={findUser}>
-                            <div>
-                            <label>Username:</label>
-                            <input
-                                type="text"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                            </div>
-                            <button type="submit">Login</button>
-                        </form>
-                </div>
-                )
-            }
+                    <button type="submit">Recuperar senha</button>
+                </form>
+            ) : (
+                <form onSubmit={createNewPassword}>
+                    <div>
+                        <label>New password:</label>
+            
+                        <input
+                            id='password'
+                            name='password'
+                            type="text"
+                        />
+                    </div>
+                    <button type="submit">Atualizar senha</button>
+                    {user && <p>{user.password}</p>}
+                </form>
+            )}
+
+            
         </div>
 
         
