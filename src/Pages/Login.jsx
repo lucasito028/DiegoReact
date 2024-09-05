@@ -11,7 +11,8 @@ export default function Login({param}){
         event.preventDefault();
         // Verifica se as credenciais estão corretas
         if (email && senha) {
-          param(email, senha)
+          const values = {email, senha}
+          param(values)
         }else{
           setErro("Está faltando um campo");
       };
