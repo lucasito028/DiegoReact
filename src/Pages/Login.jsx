@@ -26,7 +26,7 @@ export default function Login({ onLogin }){
       <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>Username:</label>
+          <label>Username</label>
           <input
             type="text"
             value={username}
@@ -34,7 +34,7 @@ export default function Login({ onLogin }){
           />
         </div>
         <div>
-          <label>Password:</label>
+          <label>Password</label>
           <input
             type="password"
             value={password}

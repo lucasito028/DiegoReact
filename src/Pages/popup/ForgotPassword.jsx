@@ -41,13 +41,15 @@ export default function ForgotPassword({ onVerification }){
                     <h2>Coloca seu codigo</h2>
                         <form onSubmit={navigateToHome}>
                             <div>
-                            <label>Codigo:</label>
+                            <label>Codigo</label>
                             <input
                                 type="number"
                                 value={id}
                             />
                             </div>
-                            <button type="submit">Login</button>
+                            <div>
+                                <button type="submit">Login</button>
+                            </div>
                         </form>
                     </div>
                 ) : (
@@ -55,14 +57,16 @@ export default function ForgotPassword({ onVerification }){
                     <h2>Recuperar Email</h2>
                         <form onSubmit={findUser}>
                             <div>
-                            <label>Username:</label>
+                            <label>Username</label>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             </div>
-                            <button type="submit">Login</button>
+                            <div>
+                                <button type="submit">Login</button>
+                            </div>
                         </form>
                 </div>
                 )
