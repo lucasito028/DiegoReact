@@ -1,16 +1,17 @@
 import data from './../../assets/Mock.json';
+import { sha256 } from 'js-sha256';
+import { useState } from 'react';
 
-export default function ForgotPassword(){
+export default function ForgotPassword({ onVerification }){
 
     const [users] = useState(data.users);
     const [username, setUsername] = useState('');
     const [id, setId] = useState(0);
-    const [code, setCode] = useState(0);
 
     const findUser = (e) => {
         e.preventDefault(); 
 
-        const user = users.find(user => user.username === params.username);
+        const user = users.find(user => user.username === username);
         if (user) {
             setId(user.id)
             return true;
@@ -21,26 +22,34 @@ export default function ForgotPassword(){
     };
 
     const navigateToHome = (e) => {
-        e.preventDefault(); 
-
+        e.preventDefault();
+        const user = users.find(user => sha256(user.id) === sha256(id)); 
+        if (user) {
+            onVerification({ username: user.username, password: user.password });
+            return true;
+        } else {
+            alert('Usuário não encontrado');
+            return null;
+        }
     };
 
     return (
         <div>
             {
-                !id != 0 ? (
+                id != 0 ? (
                     <div>
                     <h2>Coloca seu codigo</h2>
                         <form onSubmit={navigateToHome}>
                             <div>
-                            <label>Codigo:</label>
+                            <label>Codigo</label>
                             <input
                                 type="number"
-                                value={code}
-                                onChange={(e) => setCode(e.target.value)}
+                                value={id}
                             />
                             </div>
-                            <button type="submit">Login</button>
+                            <div>
+                                <button type="submit">Login</button>
+                            </div>
                         </form>
                     </div>
                 ) : (
@@ -48,14 +57,16 @@ export default function ForgotPassword(){
                     <h2>Recuperar Email</h2>
                         <form onSubmit={findUser}>
                             <div>
-                            <label>Username:</label>
+                            <label>Username</label>
                             <input
                                 type="text"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
                             </div>
-                            <button type="submit">Login</button>
+                            <div>
+                                <button type="submit">Login</button>
+                            </div>
                         </form>
                 </div>
                 )
