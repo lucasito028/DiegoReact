@@ -6,14 +6,14 @@ export default function ForgotPassword({ onVerification }){
 
     const [users] = useState(data.users);
     const [username, setUsername] = useState('');
-    const [data2, setData2] = useState([]);
+    const [formData, setFormData] = useState();
 
     const findUser = (e) => {
         e.preventDefault(); 
 
         const user = users.find(user => user.email === username);
         if (user) {
-            setData2(user)
+            setFormData(user)
             return true;
             } else {
             alert('Usuário ou senha incorretos'); 
@@ -23,7 +23,7 @@ export default function ForgotPassword({ onVerification }){
 
     const navigateToHome = (e) => {
         e.preventDefault();
-        const user = users.find(user => sha256(user.id) === sha256(id)); 
+        const user = users.find(user => sha256(user.id) === sha256(formData.id)); 
         if (user) {
             onVerification({ username: user.username, password: user.password });
             return true;
@@ -33,10 +33,11 @@ export default function ForgotPassword({ onVerification }){
         }
     };
 
+    
     return (
         <div>
             {
-                data2.id == 0 ? (
+                formData != null ? (
                     <div>
                     <h2>Coloca seu codigo</h2>
                         <form onSubmit={navigateToHome}>
@@ -44,22 +45,19 @@ export default function ForgotPassword({ onVerification }){
                                 <label>Codigo</label>
                                 <input
                                     type="number"
-                                    value={data2.id}
+                                    value={formData.id}
                                 />
                                 </div>
                                 <div>
-                                    <button type="submit">Login</button>
-                            </div>
-                            <div>
-                                <label>Senha</label>
-                                <input
-                                    type="text"
-                                    value={data2.password}
-                                />
+                                    <label>Senha</label>
+                                    <input
+                                        type="text"
+                                        value={formData.password}
+                                    />
                                 </div>
                                 <div>
                                     <button type="submit">Login</button>
-                            </div>
+                                </div>
                         </form>
                     </div>
                 ) : (
