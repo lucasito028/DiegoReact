@@ -11,6 +11,8 @@ export default function App() {
     return localStorage.getItem('autenticado') === 'true';});
   const [session, setSession] = useState(() => {
     return localStorage.getItem('session') || '';});
+  const [pageTitle, setPageTitle] = useState(() => {
+    return localStorage.getItem('pageTitle') || 'Login';});
 
   // Função de login
   const login = (params) => {
@@ -20,7 +22,8 @@ export default function App() {
     if (user) {
       setAutenticado(true);
       setSession(sha256(user.id));
-
+      setPageTitle('Home')
+      localStorage.setItem('pageTitle', 'Home');
       localStorage.setItem('autenticado', 'true');
       localStorage.setItem('session', sha256(user.id));
       return true;
@@ -32,10 +35,12 @@ export default function App() {
 
   useEffect(() => {
     if (autenticado) {
+      document.title = pageTitle;
       const sessionTimeout = setTimeout(() => {
         setAutenticado(false);
         setSession('');
 
+        localStorage.removeItem('pageTitle');
         localStorage.removeItem('autenticado');
         localStorage.removeItem('session');
         alert('Pode Sair');

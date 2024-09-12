@@ -6,19 +6,19 @@ export default function ForgotPassword({ onVerification }){
 
     const [users] = useState(data.users);
     const [username, setUsername] = useState('');
-    const [id, setId] = useState(0);
+    const [data2, setData2] = useState([]);
 
     const findUser = (e) => {
         e.preventDefault(); 
 
-        const user = users.find(user => user.username === username);
+        const user = users.find(user => user.email === username);
         if (user) {
-            setId(user.id)
+            setData2(user)
             return true;
             } else {
             alert('Usuário ou senha incorretos'); 
             return null;
-            }
+        }
     };
 
     const navigateToHome = (e) => {
@@ -36,19 +36,29 @@ export default function ForgotPassword({ onVerification }){
     return (
         <div>
             {
-                id != 0 ? (
+                data2.id == 0 ? (
                     <div>
                     <h2>Coloca seu codigo</h2>
                         <form onSubmit={navigateToHome}>
                             <div>
-                            <label>Codigo</label>
-                            <input
-                                type="number"
-                                value={id}
-                            />
+                                <label>Codigo</label>
+                                <input
+                                    type="number"
+                                    value={data2.id}
+                                />
+                                </div>
+                                <div>
+                                    <button type="submit">Login</button>
                             </div>
                             <div>
-                                <button type="submit">Login</button>
+                                <label>Senha</label>
+                                <input
+                                    type="text"
+                                    value={data2.password}
+                                />
+                                </div>
+                                <div>
+                                    <button type="submit">Login</button>
                             </div>
                         </form>
                     </div>
@@ -59,7 +69,7 @@ export default function ForgotPassword({ onVerification }){
                             <div>
                             <label>Username</label>
                             <input
-                                type="text"
+                                type="email"
                                 value={username}
                                 onChange={(e) => setUsername(e.target.value)}
                             />
