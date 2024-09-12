@@ -19,11 +19,10 @@ export default function App() {
     
     if (user) {
       setAutenticado(true);
-      const newSession = sha256(user.id);
-      setSession(newSession);
+      setSession(sha256(user.id));
 
       localStorage.setItem('autenticado', 'true');
-      localStorage.setItem('session', newSession);
+      localStorage.setItem('session', sha256(user.id));
       return true;
     } else {
       alert('Usuário ou senha incorretos');
