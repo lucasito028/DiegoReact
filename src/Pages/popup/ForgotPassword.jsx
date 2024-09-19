@@ -25,7 +25,7 @@ export default function ForgotPassword({ onVerification }){
         e.preventDefault();
         const user = users.find(user => sha256(user.id) === sha256(formData.id)); 
         if (user) {
-            onVerification({ id: user.id});
+            onVerification({ id: user.id });
             alert("Login Bem sucedido")
             return true;
         } else {

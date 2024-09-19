@@ -43,7 +43,7 @@ export default function Login({ onAuthenticated }) {
 
     if (verificationCode === af2.toString()) { 
 
-      onAuthenticated({id: user.id}); 
+      onAuthenticated({ id: user.id }); 
       alert("Login bem sucedido")
     } else {
       alert('Código incorreto, tente novamente.');
