@@ -30,8 +30,7 @@ export default function Login({ onAuthenticated }) {
       user => user.email === email && 
       sha256(user.password) === sha256(password)
     ));
-    
-    if (user) {
+    if (user.id !== null) {
       setSecondAuth(true); 
       alert(`Seu Código de Verificação: ${generateCode()}`);
     } else {
