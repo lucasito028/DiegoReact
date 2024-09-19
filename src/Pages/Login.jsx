@@ -47,7 +47,7 @@ export default function Login({ onAuthenticated }) {
       alert("Login bem sucedido")
     } else {
       alert('Código incorreto, tente novamente.');
-      alert(`Seu Código de Verificação: ${generateCode()}`);
+      alert(`Seu Novo código de Verificação: ${generateCode()}`);
     }
   };
 
