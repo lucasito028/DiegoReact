@@ -5,13 +5,13 @@ import { useState } from 'react';
 export default function ForgotPassword({ onVerification }){
 
     const [users] = useState(data.users);
-    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
     const [formData, setFormData] = useState();
 
     const findUser = (e) => {
         e.preventDefault(); 
 
-        const user = users.find(user => user.email === username);
+        const user = users.find(user => user.email === email);
         if (user) {
             setFormData(user)
             return true;
@@ -25,7 +25,8 @@ export default function ForgotPassword({ onVerification }){
         e.preventDefault();
         const user = users.find(user => sha256(user.id) === sha256(formData.id)); 
         if (user) {
-            onVerification({ username: user.username, password: user.password });
+            onVerification({ id: user.id});
+            alert("Login Bem sucedido")
             return true;
         } else {
             alert('Usuário não encontrado');
@@ -65,11 +66,11 @@ export default function ForgotPassword({ onVerification }){
                     <h2>Recuperar Email</h2>
                         <form onSubmit={findUser}>
                             <div>
-                            <label>Username</label>
+                            <label>Email</label>
                             <input
                                 type="email"
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
                             />
                             </div>
                             <div>

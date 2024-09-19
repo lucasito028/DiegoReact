@@ -1,32 +1,35 @@
-import data from './assets/Mock.json';
 import React, { useState, useEffect } from 'react';
 import Login from './Pages/Login';
 import Home from './Pages/Home';
-import { sha256 } from 'js-sha256';
 import { AppStyle } from './assets/style';
+import { sha256 } from 'js-sha256';
 
 export default function App() {
-  const [users] = useState(data.users);
+
   const [autenticado, setAutenticado] = useState(() => {
-    return localStorage.getItem('autenticado') === 'true';});
+    return localStorage.getItem('autenticado') === 'true';
+  });
   const [session, setSession] = useState(() => {
-    return localStorage.getItem('session') || '';});
+    return localStorage.getItem('session') || '';
+  });
   const [pageTitle, setPageTitle] = useState(() => {
-    return localStorage.getItem('pageTitle') || 'Login';});
+    return localStorage.getItem('pageTitle') || 'Login';
+  });
 
   // Função de login
   const login = (params) => {
-    const user = users.find(user => user.username === params.username && 
-      sha256(user.password) === sha256(params.password));
     
-    if (user) {
+    if (params) {
+
       setAutenticado(true);
-      setSession(sha256(user.id));
-      setPageTitle('Home')
+      setSession(sha256(params.id));
+      setPageTitle('Home');
+
       localStorage.setItem('pageTitle', 'Home');
       localStorage.setItem('autenticado', 'true');
-      localStorage.setItem('session', sha256(user.id));
+      localStorage.setItem('session', sha256(params.id));
       return true;
+
     } else {
       alert('Usuário ou senha incorretos');
       return null;
@@ -44,18 +47,17 @@ export default function App() {
         localStorage.removeItem('autenticado');
         localStorage.removeItem('session');
         alert('Pode Sair');
-      }, 12000);
+      }, 15000); 
 
       return () => clearTimeout(sessionTimeout); 
     }
-  }, [autenticado]);
+  }, [autenticado, pageTitle]);
 
-  // JSX para renderização condicional
   return (
     <AppStyle>
       {
         !autenticado ? (
-          <Login onLogin={login} />
+          <Login onAuthenticated={login} /> 
         ) : (
           <Home session={session} />
         )
