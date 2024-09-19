@@ -39,6 +39,7 @@ export default function App() {
   useEffect(() => {
     if (autenticado) {
       document.title = pageTitle;
+      
       const sessionTimeout = setTimeout(() => {
         setAutenticado(false);
         setSession('');
@@ -50,6 +51,7 @@ export default function App() {
       }, 15000); 
 
       return () => clearTimeout(sessionTimeout); 
+      
     }
   }, [autenticado, pageTitle]);
 

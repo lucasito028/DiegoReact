@@ -59,38 +59,42 @@ export default function Login({ onAuthenticated }) {
     <LoginForm>
       {!secondAuth ? (
         <div>
-          <h2>Login</h2>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <label>Email</label>
-              <input
-                type="text"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-              />
-            </div>
-            <div>
-              <label>Password</label>
-              <input
-                type="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-              />
-            </div>
-            <div>
-              <button type="submit">Login</button>
-            </div>
-            <div>
-              <a onClick={showForgotPassword}>Esqueceu Senha?</a>
-            </div>
-          </form>
-
-          {forgotPassword && (
+          {forgotPassword ? (
             <div className="popup">
               <ForgotPassword onClose={showForgotPassword} onVerification={onAuthenticated} />
+              <a onClick={showForgotPassword}>Voltar</a>
+            </div>
+          ) : (
+            <div>
+              <h2>Login</h2>
+              <form onSubmit={handleSubmit}>
+                <div>
+                  <label>Email</label>
+                  <input
+                    type="text"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <label>Password</label>
+                  <input
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <button type="submit">Login</button>
+                </div>
+                <div>
+                  <a onClick={showForgotPassword}>Esqueceu Senha?</a>
+                </div>
+              </form>
             </div>
           )}
         </div>
+        
       ) : (
         <div>
           <h2>Segundo Meio</h2>
